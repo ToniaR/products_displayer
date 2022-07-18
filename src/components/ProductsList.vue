@@ -1,5 +1,5 @@
 <script>
-import ProductItem from '@/components/Product.vue'
+import ProductItem from '@/components/ProductItem.vue'
 
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios';
@@ -44,7 +44,8 @@ export default {
 </script>
 
 <template>
-    <div class="products-list">
+    <span v-if="!productsList">Loading...</span>
+    <div v-else class="products-list">
         <product-item v-for="(item, key) in productsList" :product="item"  :key="key" />
     </div>
 </template>

@@ -1,10 +1,22 @@
-<script setup>
+<script>
 import ProductsList from '@/components/ProductsList.vue'
-import HeadSection from '@/components/HeadSection.vue'
+import SearchField from '@/components/Search.vue'
+import FavoriteBtn from '@/components/Favorites.vue'
+
+export default {
+    components: {
+      ProductsList,
+      SearchField,
+      FavoriteBtn
+    }
+}
 </script>
 
 <template>
-  <head-section />
+  <header class="header-wrapper">
+    <search-field />
+    <favorite-btn />
+  </header>
   <main class="app-wrapper">
     <products-list />
   </main>
@@ -37,5 +49,11 @@ body {
   @media screen and (min-width: 1024px){
     max-width: 60rem;    
   }
+}
+
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
