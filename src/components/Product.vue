@@ -18,8 +18,21 @@ export default {
     },
     setup() {
 
-        function addToFavorites () {
-            store.commit('addItemToFavorites');
+        function addToFavorites (e) {
+
+            e.preventDefault();
+            const btnEl = e.target;
+            
+            const action = btnEl.classList.contains('animated') ;
+            console.log(1, action)
+
+            if (btnEl.classList.contains('animated')) {
+                btnEl.classList.remove('animated');
+                store.commit('removeItemToFavorites');
+            } else {
+                btnEl.classList.add('animated');
+                store.commit('addItemToFavorites');
+            }
         }
 
         return { addToFavorites }
@@ -37,9 +50,7 @@ export default {
             <p class="product-wrapper__name">{{ product.articleDescription }}</p>
             <p class="product-wrapper__quality">{{ product.qualityName }}</p>
         </section>
-        <button class="product-wrapper__favorites-btn" @click="addToFavorites">
-            <star-icon class="product-wrapper__favorites-btn-icon" />
-        </button>
+        <star-icon class="product-wrapper__favorites-btn-icon"  @click="addToFavorites"/>
     </div>
     <button class="product-wrapper__add-btn">
         <shopping-bag-icon class="product-wrapper__add-btn-icon" />
@@ -123,5 +134,10 @@ export default {
         fill: var(--icon-color);
         cursor: pointer;
     }
+
+}
+
+.animated {
+    fill: var( --accent-color);
 }
 </style>
