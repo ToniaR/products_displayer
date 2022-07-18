@@ -1,5 +1,5 @@
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import StarIcon from '@/assets/icons/star.svg?component'
 import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
@@ -16,7 +16,7 @@ export default {
         ShoppingBagIcon,
         StarIcon
     },
-    setup() {
+    setup(props) {
 
         function addToFavorites (e) {
 
@@ -35,7 +35,7 @@ export default {
             }
         }
 
-        return { addToFavorites }
+        return { addToFavorites, productImageURL }
     },
 }
 

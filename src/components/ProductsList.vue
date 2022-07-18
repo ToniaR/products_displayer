@@ -1,7 +1,7 @@
 <script>
 import ProductItem from '@/components/ProductItem.vue'
 
-import { ref, onMounted, computed } from 'vue'
+import { onMounted, computed } from 'vue'
 import axios from 'axios';
 import { store } from '@/store/index'
 
@@ -13,13 +13,17 @@ export default {
 
 
         onMounted(() => {
-            const API_URL = "https://tgsaykqet1.execute-api.us-west-2.amazonaws.com/development/products";
+            const API_URL = import.meta.env.VITE_API_URL;
             axios.get(API_URL, { headers: {
-                "X-API-KEY": "ojRgdxp0s99FyJXsD7Oku3pzdPOJfc3699njTmwO",
+                "X-API-KEY": import.meta.env.VITE_API_KEY,
             }})
             .then(result => {
                 const { products } = result.data;
-                const filteredProducts = products.filter(product => product.productGroup === "41");
+                let filteredProducts = []
+                products.forEach(element => {
+                    if (filteredProducts.filter((e) => e.id !== element.id ) && element.productGroup === "41") filteredProducts.push(element);
+                });
+                
                 store.commit('updateProducts', filteredProducts);
             })
             .catch(error => console.log(error)); 
@@ -31,8 +35,8 @@ export default {
                 return store.state.productsList;
             } else {
                 let query = store.state.searchQueryString.trim().toLowerCase();
-                let foo = [...store.state.productsList].filter(product => product.articleDescription.trim().toLowerCase().includes(query));
-                return foo;
+                let filteredProducts = [...store.state.productsList].filter(product => product.articleDescription.trim().toLowerCase().includes(query));
+                return filteredProducts;
             }
         });
 
