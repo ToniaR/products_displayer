@@ -1,7 +1,16 @@
 <script setup>
-import { ref } from 'vue'
 import StarIcon from '@/assets/icons/star.svg?component'
 import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
+
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore();
+
+function addToFavorites() {
+    console.log('hello')
+    store.commit('addItemToFavorites');
+}
 </script>
 
 <template>
@@ -12,7 +21,7 @@ import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
             <p class="product-wrapper__name">Pants, blue</p>
             <p class="product-wrapper__quality">Slim fit, cotton</p>
         </section>
-        <button class="product-wrapper__favorites-btn">
+        <button class="product-wrapper__favorites-btn" @click="addToFavorites">
             <star-icon class="product-wrapper__favorites-btn-icon" />
         </button>
     </div>
@@ -89,12 +98,14 @@ import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
         color: #ffffff;
         cursor: pointer;
         transition: border-color 0.25s;
+        cursor: pointer;
     }
 
     &__add-btn-icon {
         width: 1rem;
         padding-right: 5px;
         fill: var(--icon-color);
+        cursor: pointer;
     }
 }
 </style>

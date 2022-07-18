@@ -1,23 +1,34 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex';
+
 import StarIcon from '@/assets/icons/star.svg?component'
 import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
 
+const store = useStore()
+
 let searchQuery = ref("");
 
+const favoritesAmount = computed(() => {
+    return store.state.favoritesAmount > 0 ? store.state.favoritesAmount : '';
+})
+
 </script>
+
 <template>
     <div class="head-wrapper">
         <input type="text" v-model="searchQuery" placeholder="Search" class="head-wrapper__search"/>
         <section>
             <div class="head-wrapper__icon-group">
                 <star-icon class="head-wrapper__icon" />
-                <span class="head-wrapper__icon-number">1</span>
+                <span class="head-wrapper__icon-number">{{ favoritesAmount }}</span>
             </div>
+            <!-- TODO: uncomment
             <div class="head-wrapper__icon-group">
                 <shopping-bag-icon class="head-wrapper__icon" />
                 <span class="head-wrapper__icon-number">1</span>
             </div>
+            -->
         </section>
     </div>
 </template>
