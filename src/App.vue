@@ -1,15 +1,15 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import ProductsList from './components/ProductsList.vue'
+import ProductsList from '@/components/ProductsList.vue'
+import HeadSection from '@/components/HeadSection.vue'
 </script>
 
 <template>
-  <div id="app">
-    <main class="app-wrapper">
-      <products-list />
-    </main>
-  </div>
+  <head-section />
+  <main class="app-wrapper">
+    <products-list />
+  </main>
 </template>
 
 <style lang="scss">
@@ -26,7 +26,18 @@ body {
 }
 
 .app-wrapper {
-  max-width: 70rem;
+  max-width: 100%;
   margin: 0 auto;
+}
+
+#app {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+
+  @media screen and (min-width: 1024px){
+    max-width: 60rem;    
+  }
 }
 </style>

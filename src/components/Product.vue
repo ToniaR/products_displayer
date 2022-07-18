@@ -2,9 +2,6 @@
 import { ref } from 'vue'
 import StarIcon from '@/assets/icons/star.svg?component'
 import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
-
-
-
 </script>
 
 <template>
@@ -79,12 +76,19 @@ import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
     &__add-btn {
         width: 100%;
         height: 42px;
-        // background: linear-gradient(45deg, #7646e8, #e24040);
-        background: var(--button-bg-color);
-        border: 0;
+        background-color: var(--button-bg-color);
         font-weight: 400;
         outline: none;
         line-height: 100%;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        padding: 0.6em 1.2em;
+        font-size: 1em;
+        font-weight: 500;
+        font-family: inherit;
+        color: #ffffff;
+        cursor: pointer;
+        transition: border-color 0.25s;
     }
 
     &__add-btn-icon {
