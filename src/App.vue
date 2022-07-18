@@ -12,14 +12,17 @@ import ProductsList from './components/ProductsList.vue'
   </div>
 </template>
 
-<style>
+<style lang="scss">
+@import '@/assets/styles/main.scss';
+
 * {
   padding: 0;
   margin: 0;
 }
 
 body {
-  background: #ffffff;
+  background: var(--main-bg-color);
+  font-family:  'Roboto', sans-serif;
 }
 
 .app-wrapper {
