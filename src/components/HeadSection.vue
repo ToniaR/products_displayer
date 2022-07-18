@@ -1,17 +1,30 @@
-<script setup>
-import { ref, computed } from 'vue'
+<script>
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex';
+import { store } from '@/store/index'
 
 import StarIcon from '@/assets/icons/star.svg?component'
 import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
 
-const store = useStore()
+export default {
+    components: {
+        StarIcon,
+        ShoppingBagIcon
+    },
+    setup() {
+        let searchQuery = ref("");
+        const favoritesAmount = computed(() => {
+            return store.state.favoritesAmount > 0 ? store.state.favoritesAmount : '';
+        });
 
-let searchQuery = ref("");
+        watch(() => searchQuery.value, (old, newVal) => { 
+            store.commit('updateSearchQuery', newVal);
+        })
 
-const favoritesAmount = computed(() => {
-    return store.state.favoritesAmount > 0 ? store.state.favoritesAmount : '';
-})
+        return { searchQuery, favoritesAmount };
+    }
+}
+
 
 </script>
 
@@ -23,12 +36,6 @@ const favoritesAmount = computed(() => {
                 <star-icon class="head-wrapper__icon" />
                 <span class="head-wrapper__icon-number">{{ favoritesAmount }}</span>
             </div>
-            <!-- TODO: uncomment
-            <div class="head-wrapper__icon-group">
-                <shopping-bag-icon class="head-wrapper__icon" />
-                <span class="head-wrapper__icon-number">1</span>
-            </div>
-            -->
         </section>
     </div>
 </template>

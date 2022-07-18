@@ -1,19 +1,31 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
+import axios from 'axios';
 
-const store = createStore({
+export const store = createStore({
     state: {
+        productsList: null,
         favoritesAmount: 0,
+        searchQueryString: '',
         titleApp: 'this is store'
 
     },
     mutations: {
         addItemToFavorites(state) {
-            state.favoritesAmount = state.favoritesAmount+1;
+            state.favoritesAmount++;
         },
         removeItemToFavorites(state) {
-            state.favoritesAmount = state.favoritesAmount--;
+            state.favoritesAmount--;
+        },
+        updateProducts(state, payload) {
+            state.productsList = payload;
+        },
+        updateSearchQuery(state, payload) {
+            state.searchQueryString = payload;
+        }
+    },
+    actions: {
+        getSearchResults(state, payload) {
+
         }
     }
 })
-
-export default store;

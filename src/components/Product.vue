@@ -1,16 +1,32 @@
-<script setup>
-import StarIcon from '@/assets/icons/star.svg?component'
-import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
-
+<script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import StarIcon from '@/assets/icons/star.svg?component'
+import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
+import { store } from '@/store/index'
 
-const store = useStore();
+export default {
+    props: {
+        product: {
+            type: Object,
+            required: true
+        }
+    },
+    components: {
+        ShoppingBagIcon,
+        StarIcon
+    },
+    setup() {
 
-function addToFavorites() {
-    console.log('hello')
-    store.commit('addItemToFavorites');
+        function addToFavorites () {
+            store.commit('addItemToFavorites');
+        }
+
+        return { addToFavorites }
+    },
 }
+
+
 </script>
 
 <template>
@@ -18,8 +34,8 @@ function addToFavorites() {
     <img src="@/assets/images/fallbackImage.jpg" class="product-wrapper__image" />
     <div class="product-wrapper__content">
         <section class="product-wrapper__attributes-group">
-            <p class="product-wrapper__name">Pants, blue</p>
-            <p class="product-wrapper__quality">Slim fit, cotton</p>
+            <p class="product-wrapper__name">{{ product.articleDescription }}</p>
+            <p class="product-wrapper__quality">{{ product.qualityName }}</p>
         </section>
         <button class="product-wrapper__favorites-btn" @click="addToFavorites">
             <star-icon class="product-wrapper__favorites-btn-icon" />

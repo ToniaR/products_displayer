@@ -1,7 +1,6 @@
 <script setup>
 import ProductsList from '@/components/ProductsList.vue'
 import HeadSection from '@/components/HeadSection.vue'
-
 </script>
 
 <template>
