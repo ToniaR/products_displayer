@@ -1,23 +1,29 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import ProductsList from './components/ProductsList.vue'
 </script>
 
 <template>
-  <HelloWorld msg="Products" />
+  <div id="app">
+    <main class="app-wrapper">
+      <products-list />
+    </main>
+  </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+<style>
+* {
+  padding: 0;
+  margin: 0;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+body {
+  background: #ffffff;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.app-wrapper {
+  max-width: 70rem;
+  margin: 0 auto;
 }
 </style>
