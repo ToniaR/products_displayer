@@ -32,9 +32,9 @@ import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
 
     &__image {
         height: 300px;
-        width: auto;
-        border-radius: 1rem;
-        object-fit: fill;
+        width: 100%;
+        border-radius: 7px;
+        object-fit: cover;
     }
 
     &__name {
