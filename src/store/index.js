@@ -5,8 +5,8 @@ export const store = createStore({
     state: {
         productsList: null,
         favorites: [],
-        searchQueryString: ''
-
+        searchQueryString: '',
+        requestErrorMsg: ''
     },
     mutations: {
         addItemToFavorites(state, payload) {
@@ -20,6 +20,9 @@ export const store = createStore({
         },
         updateSearchQuery(state, payload) {
             state.searchQueryString = payload;
+        },
+        updateRequestErrorMsg(state, payload) {
+            state.requestErrorMsg = payload;
         }
     },
     actions: {
@@ -42,7 +45,7 @@ export const store = createStore({
                 store.commit('updateProducts', productsfilteredByID);
             })
             .catch(error => {
-                throw new Error(error)
+                store.commit('updateRequestErrorMsg', `An error occured, cannot get data`);
             })
         }
     }

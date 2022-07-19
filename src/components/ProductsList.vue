@@ -13,6 +13,8 @@ export default {
             store.dispatch('getAllProducts')
         })
 
+        const errorMessage = computed(() => store.state.requestErrorMsg);
+
         const productsList = computed(() => {
             if (store.state.searchQueryString.trim().length === 0) {
                 return store.state.productsList;
@@ -24,7 +26,7 @@ export default {
             }
         });
 
-        return { productsList }
+        return { productsList, errorMessage }
     }
 
 }
@@ -32,7 +34,8 @@ export default {
 </script>
 
 <template>
-    <span v-if="!productsList">Loading...</span>
+    <span v-if="errorMessage">{{ errorMessage }}</span>
+    <span v-else-if="!productsList">Loading...</span>
     <div v-else class="products-list">
         <product-item v-for="(item, key) in productsList" 
             :product="item"
