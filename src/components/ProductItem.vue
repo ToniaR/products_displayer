@@ -100,6 +100,8 @@ export default {
     }
 
     &__attributes-group {
+        height: 50px;
+        width: 90%;
         text-align: left;
     }
 
