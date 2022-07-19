@@ -16,4 +16,4 @@ yarn dev
 yarn build
 ```
 
-# To be able to get data add your api_url and api_key in `env` file
+To be able to get data add your api_url and api_key in `env` file
