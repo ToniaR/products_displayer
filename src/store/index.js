@@ -1,20 +1,19 @@
 import { createStore } from 'vuex';
-import axios from 'axios';
+import { api } from '@/api/index'
 
 export const store = createStore({
     state: {
         productsList: null,
-        favoritesAmount: 0,
-        searchQueryString: '',
-        titleApp: 'this is store'
+        favorites: [],
+        searchQueryString: ''
 
     },
     mutations: {
-        addItemToFavorites(state) {
-            state.favoritesAmount++;
+        addItemToFavorites(state, payload) {
+            state.favorites.push(payload);
         },
-        removeItemToFavorites(state) {
-            state.favoritesAmount--;
+        removeItemToFavorites(state, payload) {
+            state.favorites.splice(payload, 1);
         },
         updateProducts(state, payload) {
             state.productsList = payload;
@@ -24,8 +23,27 @@ export const store = createStore({
         }
     },
     actions: {
-        getSearchResults(state, payload) {
+        getAllProducts(state, payload) {
+            api.get()
+            .then(result => {
+                const { products } = result.data;
+                let filteredProducts = []
+                
+                products.forEach(element => {
+                    if (element.productGroup === "41") filteredProducts.push(element);
+                });
 
+                const productsfilteredByID = filteredProducts.filter((product, index, self) =>
+                    index === self.findIndex((i) => (
+                        i.id === product.id
+                    ))
+                )
+
+                store.commit('updateProducts', productsfilteredByID);
+            })
+            .catch(error => {
+                throw new Error(error)
+            })
         }
     }
 })

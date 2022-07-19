@@ -10,7 +10,7 @@ export default {
     },
     setup() {
         const favoritesAmount = computed(() => {
-            return store.state.favoritesAmount > 0 ? store.state.favoritesAmount : '';
+            return store.state.favorites.length > 0 ? store.state.favorites.length : '';
         });
 
         return { favoritesAmount };

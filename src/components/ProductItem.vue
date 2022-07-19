@@ -1,6 +1,4 @@
 <script>
-import { computed, ref } from 'vue'
-import { useStore } from 'vuex'
 import StarIcon from '@/assets/icons/star.svg?component'
 import ShoppingBagIcon from '@/assets/icons/cart-shopping.svg?component'
 import { store } from '@/store/index'
@@ -22,20 +20,20 @@ export default {
 
             e.preventDefault();
             const btnEl = e.target;
-            
-            const action = btnEl.classList.contains('animated') ;
-            console.log(1, action)
+            const id = props.product.id;
 
-            if (btnEl.classList.contains('animated')) {
-                btnEl.classList.remove('animated');
-                store.commit('removeItemToFavorites');
+            const favoritesArr = store.state.favorites;
+
+            if (favoritesArr.indexOf(id) === -1) {
+                store.commit('addItemToFavorites', id);
+                btnEl.classList.add('product-wrapper__favorites-checkbox--animated');
             } else {
-                btnEl.classList.add('animated');
-                store.commit('addItemToFavorites');
+                store.commit('removeItemToFavorites', favoritesArr.indexOf(id));
+                btnEl.classList.remove('product-wrapper__favorites-checkbox--animated');
             }
         }
 
-        return { addToFavorites, productImageURL }
+        return { addToFavorites }
     },
 }
 
@@ -50,7 +48,14 @@ export default {
             <p class="product-wrapper__name">{{ product.articleDescription }}</p>
             <p class="product-wrapper__quality">{{ product.qualityName }}</p>
         </section>
-        <star-icon class="product-wrapper__favorites-btn-icon"  @click="addToFavorites"/>
+        <label :for="`favorites-btn-${product.id}`">
+            <input
+                type="checkbox"
+                :id="`favorites-btn-${product.id}`"
+                class="product-wrapper__favorites-checkbox"
+                @click="addToFavorites"
+            />
+        </label>
     </div>
     <button class="product-wrapper__add-btn">
         <shopping-bag-icon class="product-wrapper__add-btn-icon" />
@@ -122,7 +127,7 @@ export default {
         font-size: 1em;
         font-weight: 500;
         font-family: inherit;
-        color: #ffffff;
+        color: var(--icon-color);
         cursor: pointer;
         transition: border-color 0.25s;
         cursor: pointer;
@@ -135,9 +140,26 @@ export default {
         cursor: pointer;
     }
 
-}
+    &__favorites-checkbox {
+        -webkit-appearance: none;
+        appearance: none;
 
-.animated {
-    fill: var( --accent-color);
+        &::after {
+            display: block;
+            content: '';
+            background: url('@/assets/icons/star.svg') center center no-repeat;
+            width: 1rem;
+            height: 1rem;
+            padding-right: 5px;
+            cursor: pointer;
+        }
+
+        &--animated {
+            &::after {
+                background: url('@/assets/icons/star-accent.svg') center center no-repeat;
+            }
+        }
+    }
+
 }
 </style>

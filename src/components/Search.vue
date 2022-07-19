@@ -1,5 +1,5 @@
 <script>
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { store } from '@/store/index'
 
 export default {
