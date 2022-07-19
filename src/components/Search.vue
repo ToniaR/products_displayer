@@ -6,7 +6,7 @@ export default {
     setup() {
         let searchQuery = ref("");
 
-        watch(() => searchQuery.value, (old, newVal) => { 
+        watch(() => searchQuery.value, (old, newVal) => {
             store.commit('updateSearchQuery', newVal);
         })
 

@@ -16,7 +16,7 @@ export default {
         const errorMessage = computed(() => store.state.requestErrorMsg);
 
         const productsList = computed(() => {
-            if (store.state.searchQueryString.trim().length === 0) {
+            if (store.state.searchQueryString.trim().length <= 1) {
                 return store.state.productsList;
             } else {
                 const query = store.state.searchQueryString.trim().toLowerCase();
